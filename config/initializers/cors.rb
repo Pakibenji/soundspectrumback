@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'https://main--helpful-parfait-ba2e59.netlify.app/'
+      origins '*'
       resource '*',
       headers: ["Authorization"],
       expose: ["Authorization"],
