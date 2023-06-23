@@ -6,4 +6,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     sign_in(resource_name, resource)
     render json: resource
   end
+
+  def destroy
+    resource.destroy
+    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+    render json: {}
+  end
 end
