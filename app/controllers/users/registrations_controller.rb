@@ -8,8 +8,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def destroy
-    resource.destroy
-    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+    token = request.headers["Authorization"].split(' ').last
+    user = User.find_by(jti: token)
+    user.destroy
     render json: { message: "Votre compte a été supprimé" }
   end
 end
