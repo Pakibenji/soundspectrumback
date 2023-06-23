@@ -8,8 +8,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def destroy
-    current_user.destroy
-    sign_out(current_user)
-    render json: {}
+    resource = User.find(params[:id])
+    resource.destroy
+    render json: { message: "Votre compte a été supprimé" }
   end
 end
