@@ -7,4 +7,5 @@ class Users::SessionsController < Devise::SessionsController
   def respond_to_on_destroy
     render json: { message: "Vous êtes déconnecté" }
   end
+
 end

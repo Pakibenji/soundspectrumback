@@ -1,7 +1,9 @@
 class PrivateController < ApplicationController
   before_action :authenticate_user!
-  def user
-    render json: {
-      message: "Vous êtes bien connecté en tant que #{current_user.email}"}
+ 
+  def destroy
+    resource.destroy
+    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+    render json: {}
   end
 end
