@@ -8,8 +8,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def destroy
-    resource.destroy
-    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+    current_user.destroy
+    sign_out(current_user)
     render json: {}
   end
 end
