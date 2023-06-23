@@ -8,9 +8,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def destroy
-    token = request.headers["Authorization"].split(' ').last
-    user = User.find_by(jti: token)
-    user.destroy
-    render json: { message: "Votre compte a été supprimé" }
+    current_user.destroy
+    sign_out(current_user)
+
   end
 end
