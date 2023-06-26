@@ -7,8 +7,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
     render json: resource
   end
 
-  def destroy
-    resource.destroy
-    sign_out_and_redirect(resource_name)
-  end
 end
