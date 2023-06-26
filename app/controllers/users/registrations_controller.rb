@@ -8,13 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def destroy
-    email = params[:email] 
-    user = User.find_by(email: email)
-    if user
-      user.destroy
-      render json: { message: "Votre compte a été supprimé" }
-    else
-      render json: { error: "Utilisateur non trouvé" }, status: :not_found
-    end
+    resource.destroy
+    sign_out_and_redirect(resource_name)
   end
 end
