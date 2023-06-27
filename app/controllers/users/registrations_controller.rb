@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource = User.find(params[:id])
     resource.destroy
     sign_out(resource_name)
-    render json: "Votre compte a bien été supprimé"
+    head :no_content
   end
 
 end
