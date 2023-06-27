@@ -36,15 +36,26 @@ class UsersController < ApplicationController
     render json: { error: 'Jeton d\'authentification invalide' }, status: :unauthorized
   end
 
-   def send_reset_password_email
-  
-     user = User.find_by(email: params[:email])
-     if user
-       user.send_reset_password_instructions
-       render json: { message: 'Email envoyé avec succès' }
-     else
-       render json: { error: 'Email introuvable' }, status: :not_found
-     end
-   end
+  #methode update pour modifier le mot de passe de l'utilisateur 
+  def update
+    token = request.headers['Authorization']&.split(' ')&.last
+    if token
+      user_id = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'])[0]['sub']
+      user = User.find_by(id: user_id)
+      if user
+        if user.update(user_params)
+          render json: { message: 'Mot de passe modifié avec succès' }
+        else
+          render json: { error: 'Mot de passe invalide' }, status: :unprocessable_entity
+        end
+      else
+        render json: { error: 'Utilisateur introuvable' }, status: :not_found
+      end
+    else
+      render json: { error: 'Jeton d\'authentification manquant' }, status: :unauthorized
+    end
+  rescue JWT::DecodeError => e
+    render json: { error: 'Jeton d\'authentification invalide' }, status: :unauthorized
+  end
 
 end

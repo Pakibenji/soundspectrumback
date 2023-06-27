@@ -56,7 +56,6 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "soundspectrum_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.perform_deliveries = true
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -80,19 +79,6 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
-
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'https://soundsprectrum-eee2cb861559.herokuapp.com/',
-    user_name: 'soundspectrum.office@gmail.com',
-    password: ENV['MAIL_SECRET'],
-    authentication: 'plain',
-    enable_starttls_auto: true
-  }
-  config.action_mailer.default_options = {
-    from: 'soundspectrum.office@gmail.com'
-  }
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

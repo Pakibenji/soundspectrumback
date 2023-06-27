@@ -15,5 +15,5 @@ Rails.application.routes.draw do
     }
 get '/users', to: 'users#show'
 delete '/users', to: 'users#destroy'
-post '/users/password', to: 'users#send_reset_password_email'
+post '/users/password', to: 'users#update'
 end
