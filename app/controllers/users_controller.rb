@@ -36,14 +36,14 @@ class UsersController < ApplicationController
     render json: { error: 'Jeton d\'authentification invalide' }, status: :unauthorized
   end
 
-  #methode update pour modifier le mot de passe de l'utilisateur 
   def update
     token = request.headers['Authorization']&.split(' ')&.last
     if token
       user_id = JWT.decode(token, ENV['DEVISE_JWT_SECRET_KEY'])[0]['sub']
       user = User.find_by(id: user_id)
       if user
-        if user.update(user_params)
+        if user.update(password: params[:password])
+          
           render json: { message: 'Mot de passe modifié avec succès' }
         else
           render json: { error: 'Mot de passe invalide' }, status: :unprocessable_entity
@@ -57,5 +57,6 @@ class UsersController < ApplicationController
   rescue JWT::DecodeError => e
     render json: { error: 'Jeton d\'authentification invalide' }, status: :unauthorized
   end
+
 
 end
