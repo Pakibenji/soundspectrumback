@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     # verifier si le jeton est valide 
     if token.present?
       # si le jeton est valide on le decode avec la clé secrete DEVISE_JWT_SECRET_KEY
-      decoded_token = JWT.decode(token, 'DEVISE_JWT_SECRET_KEY', true, { algorithm: 'HS256' })
+      decoded_token = JWT.decode(token, 'DEVISE_JWT_SECRET_KEY')
 
       user_id = decoded_token.first['user_id']
 
