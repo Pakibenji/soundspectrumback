@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     token = request.headers['Authorization']&.split(' ')&.last
     if token
       # Décodage du jeton d'authentification  et récupération de l'ID de l'utilisateur
-      user_id = JWT.decode(token, Rails.application.secrets.secret_key_base)[0]['user_id']
+      user_id = JWT.decode(token, 'DEVISE_JWT_SECRET_KEY')[0]['user_id']
       # Recherche de l'utilisateur par ID
       user = User.find_by(id: user_id)
       if user
