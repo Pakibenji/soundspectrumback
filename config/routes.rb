@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, 
     path: '', 
@@ -12,5 +13,6 @@ Rails.application.routes.draw do
       registrations: 'users/registrations',
       passwords: 'users/passwords'
     }
+get '/users', to: 'users#show'
     
 end
