@@ -7,11 +7,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
     render json: resource
   end
 
-  def destroy
-    resource = User.find(params[:id])
-    resource.destroy
-    sign_out(resource_name)
-    head :no_content
-  end
 
 end

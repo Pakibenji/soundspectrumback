@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     controllers: {
       sessions: 'users/sessions',
       registrations: 'users/registrations',
-      passwords: 'users/passwords'
     }
 get '/users', to: 'users#show'
 delete '/users', to: 'users#destroy'
