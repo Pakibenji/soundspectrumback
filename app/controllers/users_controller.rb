@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     token = request.headers['Authorization']&.split(' ')&.last
     if token
 
-      user_id = JWT.decode(token, 'DEVISE_JWT_SECRET_KEY')[0]['user_id']
+      user_id = JWT.decode(token, DEVISE_JWT_SECRET_KEY)[0]['user_id']
       user = User.find_by(id: user_id)
       if user
         render json: user
