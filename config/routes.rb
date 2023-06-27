@@ -14,5 +14,6 @@ Rails.application.routes.draw do
       passwords: 'users/passwords'
     }
 get '/users', to: 'users#show'
+delete '/users', to: 'users#destroy'
     
 end
