@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   rescue JWT::DecodeError => e
     render json: { error: 'Jeton d\'authentification invalide' }, status: :unauthorized
   end
+
   def destroy
     token = request.headers['Authorization']&.split(' ')&.last
     if token
@@ -34,4 +35,16 @@ class UsersController < ApplicationController
   rescue JWT::DecodeError => e
     render json: { error: 'Jeton d\'authentification invalide' }, status: :unauthorized
   end
+
+   def send_reset_password_email
+  
+     user = User.find_by(email: params[:email])
+     if user
+       user.send_reset_password_instructions
+       render json: { message: 'Email envoyé avec succès' }
+     else
+       render json: { error: 'Email introuvable' }, status: :not_found
+     end
+   end
+
 end
