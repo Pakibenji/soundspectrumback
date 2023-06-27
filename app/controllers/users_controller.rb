@@ -1,19 +1,20 @@
 class UsersController < ApplicationController
   def show
-    token = request.headers['Authorization']&.split(' ')&.last
-    if token
+    #récuperer le jeton jwt dans le header de la requete
+    token = request.headers['Authorization']
+    # verifier si le jeton est valide 
+    if token.present?
+      # si le jeton est valide on le decode avec la clé secrete DEVISE_JWT_SECRET_KEY
+      decoded_token = JWT.decode(token, 'DEVISE_JWT_SECRET_KEY', true, { algorithm: 'HS256' })
 
-      user_id = JWT.decode(token, DEVISE_JWT_SECRET_KEY)[0]['user_id']
-      user = User.find_by(id: user_id)
-      if user
-        render json: user
-      else
-        render json: { error: 'Utilisateur introuvable' }, status: :not_found
-      end
+      user_id = decoded_token.first['user_id']
+
+      user = User.find(user_id)
+
+      render json: user
     else
-      render json: { error: 'Jeton d\'authentification manquant' }, status: :unauthorized
+      # si le jeton n'est pas valide on renvoie un message d'erreur
+      render json: {error: "Vous n'avez pas les droits pour acceder à cette ressource"}, status: 403
     end
-  rescue JWT::DecodeError => e
-    render json: { error: 'Jeton d\'authentification invalide' }, status: :unauthorized
   end
 end
