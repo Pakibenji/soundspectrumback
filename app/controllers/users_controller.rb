@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   def show
     token = request.headers['Authorization']&.split(' ')&.last
@@ -14,7 +16,7 @@ class UsersController < ApplicationController
     else
       render json: { error: 'Jeton d\'authentification manquant' }, status: :unauthorized
     end
-  rescue JWT::DecodeError => e
+  rescue JWT::DecodeError
     render json: { error: 'Jeton d\'authentification invalide' }, status: :unauthorized
   end
 
@@ -32,7 +34,7 @@ class UsersController < ApplicationController
     else
       render json: { error: 'Jeton d\'authentification manquant' }, status: :unauthorized
     end
-  rescue JWT::DecodeError => e
+  rescue JWT::DecodeError
     render json: { error: 'Jeton d\'authentification invalide' }, status: :unauthorized
   end
 
@@ -43,7 +45,7 @@ class UsersController < ApplicationController
       user = User.find_by(id: user_id)
       if user
         if user.update(password: params[:password])
-          
+
           render json: { message: 'Mot de passe modifié avec succès' }
         else
           render json: { error: 'Mot de passe invalide' }, status: :unprocessable_entity
@@ -54,9 +56,7 @@ class UsersController < ApplicationController
     else
       render json: { error: 'Jeton d\'authentification manquant' }, status: :unauthorized
     end
-  rescue JWT::DecodeError => e
+  rescue JWT::DecodeError
     render json: { error: 'Jeton d\'authentification invalide' }, status: :unauthorized
   end
-
-
 end

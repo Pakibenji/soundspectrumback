@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RailsAdmin.config do |config|
   config.asset_source = :sprockets
 
@@ -10,14 +12,11 @@ RailsAdmin.config do |config|
   config.authenticate_with do
     # this is a rails controller helper
     authenticate_or_request_with_http_basic('Login required') do |username, password|
-  
       # Here we're checking for username & password provided with basic auth
       resource = User.find_by(email: username)
-  
-      # we're using devise helpers to verify password and sign in the user 
-      if resource.valid_password?(password) && resource.role == "admin"
-        sign_in :admin, resource
-      end
+
+      # we're using devise helpers to verify password and sign in the user
+      sign_in :admin, resource if resource.valid_password?(password) && resource.role == 'admin'
     end
   end
   ## == Pundit ==
