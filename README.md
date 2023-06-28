@@ -18,4 +18,4 @@ Les préférences musicales seront stockées en local storageTechnologies utilis
 
 En résumé, ce projet permettra aux utilisateurs de s'inscrire puis de se connecter  afin d’accéder aux radios, avec la possibilité de les filtrer par genre musicaux et de les ajouter en favoris. L'application utilisera une API Rails pour la gestion des données utilisateurs  et l'API radio-browser sera utilisée pour récupérer les stations de radio recommandées. La plateforme sera développée en utilisant React pour créer une interface réactive et conviviale.
 
-https://soundspectrum.netlify.app/
+Sound Spectrum link : https://soundspectrum.netlify.app/
