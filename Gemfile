@@ -57,3 +57,4 @@ gem 'rails_admin', '~> 3.1', '>= 3.1.2'
 gem 'rspec'
 gem 'rubocop', require: false
 gem 'sassc-rails'
+gem 'rspec-rails', '~> 4.0'
